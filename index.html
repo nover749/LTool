@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Access</title>
+  <style>
+    :root{
+      --bg:#0b0b0b;
+      --fg:#f5f5f5;
+      --muted: #bfbfbf;
+      --accent: #ffffff;
+      --glass: rgba(255,255,255,0.04);
+      font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      background: linear-gradient(180deg, var(--bg) 0%, #050505 100%);
+      color:var(--fg);
+      display:flex;align-items:center;justify-content:center;
+      padding:24px;
+    }
+
+    .card{
+      width:100%;
+      max-width:980px;
+      background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      border:1px solid rgba(255,255,255,0.04);
+      border-radius:14px;
+      padding:40px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+    }
+
+    .title{
+      font-size:28px;
+      letter-spacing:0.02em;
+      margin:0 0 8px 0;
+    }
+    .subtitle{color:var(--muted);margin:0 0 24px 0;font-size:13px}
+
+    .access-panel{
+      display:flex;gap:12px;align-items:center;margin-bottom:28px;
+    }
+    .access-panel input{
+      flex:1;padding:14px 16px;border-radius:10px;border:1px solid rgba(255,255,255,0.06);background:transparent;color:var(--fg);font-size:15px;outline:none;
+      transition:box-shadow .18s ease, border-color .18s ease;
+    }
+    .access-panel input:focus{box-shadow:0 6px 18px rgba(255,255,255,0.03);border-color:rgba(255,255,255,0.12)}
+
+    .btn{
+      display:inline-block;padding:12px 18px;border-radius:10px;border:1px solid rgba(255,255,255,0.06);background:transparent;color:var(--fg);cursor:pointer;font-weight:600;font-size:14px}
+    .btn:hover{transform:translateY(-1px)}
+
+    .links{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px}
+    .link-card{background:var(--glass);border-radius:10px;padding:14px 16px;border:1px solid rgba(255,255,255,0.02);display:flex;align-items:center;gap:12px;text-decoration:none;color:var(--fg);transition:transform .12s ease, border-color .12s ease}
+    .link-card:hover{transform:translateY(-6px);border-color:rgba(255,255,255,0.06)}
+    .favicon{width:40px;height:40px;border-radius:8px;background:linear-gradient(135deg,#fff,#eee);display:flex;align-items:center;justify-content:center;color:#111;font-weight:700}
+    .link-meta{font-size:14px}
+    .link-title{font-weight:700;margin:0}
+    .link-url{color:var(--muted);font-size:12px;margin:3px 0 0}
+
+    .hint{color:var(--muted);font-size:13px;margin-top:16px}
+
+    #protected{display:none}
+
+    @media (max-width:520px){.card{padding:20px}.title{font-size:20px}.access-panel{flex-direction:column;align-items:stretch}.access-panel input{width:100%}.btn{width:100%}}
+  </style>
+</head>
+<body>
+  <main class="card">
+    <h1 class="title">Please enter access code</h1>
+    <p class="subtitle">Enter the correct code to reveal your links.</p>
+
+    <div class="access-panel">
+      <input id="codeInput" type="password" placeholder="Access code" aria-label="Access code">
+      <button id="unlockBtn" class="btn">Unlock</button>
+    </div>
+
+    <div id="feedback" class="hint"></div>
+
+    <section id="protected">
+      <h2 class="title" style="font-size:20px">Links</h2>
+      <div id="linksContainer" class="links" aria-live="polite"></div>
+    </section>
+  </main>
+
+  <script>
+    const ACCESS_CODE = '1234'; // change this if you like
+
+    const links = [
+      { title: 'Super Mario 64 Unblocked', url: 'https://subtlexp.github.io/SM64-Unblocked/' },
+      { title: 'C2 Sans Fight', url: 'https://sans-simulator.github.io/c2-sans-fight/' },
+      { title: 'Google Drive File', url: 'https://drive.google.com/file/d/1PDAuvx9Vk4gVaHEBdgw2xY17YHvtilOV/view?usp=drivesdk' },
+      { title: 'PayloadsAllTheThings (GitHub)', url: 'https://github.com/swisskyrepo/PayloadsAllTheThings' },
+      { title: 'Free Movie 26', url: 'https://nover749.github.io/Free-Movie26/' },
+      { title: 'MyAndroid Run', url: 'https://www.myandroid.org/run/start.php' },
+      { title: 'MC-Collection (GitHub)', url: 'https://github.com/nover749/MC-Collection' },
+
+      // Windows-related tools
+      { title: 'Sysinternals Suite (Microsoft)', url: 'https://learn.microsoft.com/en-us/sysinternals/' },
+      { title: 'PowerToys (Microsoft GitHub)', url: 'https://github.com/microsoft/PowerToys' },
+      { title: 'Windows Terminal (Microsoft GitHub)', url: 'https://github.com/microsoft/terminal' },
+      { title: 'Chocolatey (Windows package manager)', url: 'https://chocolatey.org/' },
+      { title: 'Nmap for Windows', url: 'https://nmap.org/download.html#win' },
+      { title: 'Process Hacker', url: 'https://processhacker.sourceforge.io/' },
+      { title: 'Hashcat (official)', url: 'https://hashcat.net/hashcat/' }
+    ];
+
+    const input = document.getElementById('codeInput');
+    const btn = document.getElementById('unlockBtn');
+    const feedback = document.getElementById('feedback');
+    const protectedSection = document.getElementById('protected');
+    const linksContainer = document.getElementById('linksContainer');
+
+    function showLinks(){
+      linksContainer.innerHTML = '';
+      links.forEach(l => {
+        const a = document.createElement('a');
+        a.className = 'link-card';
+        a.href = l.url;
+        a.target = '_blank';
+        a.rel = 'noopener noreferrer';
+
+        const fav = document.createElement('div');
+        fav.className = 'favicon';
+        fav.textContent = l.title.charAt(0).toUpperCase();
+
+        const meta = document.createElement('div');
+        meta.className = 'link-meta';
+        const t = document.createElement('p'); t.className = 'link-title'; t.textContent = l.title;
+        const u = document.createElement('p'); u.className = 'link-url'; u.textContent = l.url;
+        meta.appendChild(t); meta.appendChild(u);
+
+        a.appendChild(fav); a.appendChild(meta);
+        linksContainer.appendChild(a);
+      });
+    }
+
+    function unlock(){
+      const val = input.value.trim();
+      if(val === ACCESS_CODE){
+        protectedSection.style.display = 'block';
+        feedback.textContent = 'Access granted — welcome.';
+        feedback.style.color = '';
+        showLinks();
+      } else {
+        feedback.textContent = 'Access denied — try again.';
+        feedback.style.color = '#ff6b6b';
+        input.animate([{transform:'translateX(-6px)'},{transform:'translateX(6px)'},{transform:'translateX(0)'}],{duration:220});
+      }
+    }
+
+    btn.addEventListener('click', unlock);
+    input.addEventListener('keydown', (e)=>{ if(e.key === 'Enter') unlock(); });
+  </script>
+</body>
+</html>
