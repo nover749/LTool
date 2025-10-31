@@ -4,6 +4,16 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>LTool</title>
+
+  <!-- Black & white lock icon as favicon -->
+  <link rel="icon" type="image/svg+xml" href='data:image/svg+xml,
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="black">
+      <rect width="24" height="24" fill="white"/>
+      <path d="M6 10V8a6 6 0 1 1 12 0v2h1a1 1 0 0 1 1 1v10a1 
+      1 0 0 1-1 1H5a1 1 0 0 1-1-1V11a1 1 0 0 1 1-1h1zm2 0h8V8a4 
+      4 0 0 0-8 0v2z" fill="black"/>
+    </svg>' />
+
   <style>
     :root{
       --bg:#0b0b0b;
@@ -26,6 +36,8 @@
     .card{
       width:100%;
       max-width:980px;
+      height:90vh;
+      overflow:auto;
       background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
       border:1px solid rgba(255,255,255,0.04);
       border-radius:14px;
@@ -65,7 +77,13 @@
 
     #protected{display:none}
 
-    @media (max-width:520px){.card{padding:20px}.title{font-size:20px}.access-panel{flex-direction:column;align-items:stretch}.access-panel input{width:100%}.btn{width:100%}}
+    @media (max-width:520px){
+      .card{padding:20px;height:90vh}
+      .title{font-size:20px}
+      .access-panel{flex-direction:column;align-items:stretch}
+      .access-panel input{width:100%}
+      .btn{width:100%}
+    }
   </style>
 </head>
 <body>
@@ -93,19 +111,113 @@
       { title: 'Super Mario 64 Unblocked', url: 'https://subtlexp.github.io/SM64-Unblocked/' },
       { title: 'C2 Sans Fight', url: 'https://sans-simulator.github.io/c2-sans-fight/' },
       { title: 'Google Drive File', url: 'https://drive.google.com/file/d/1PDAuvx9Vk4gVaHEBdgw2xY17YHvtilOV/view?usp=drivesdk' },
-      { title: 'PayloadsAllTheThings (GitHub)', url: 'https://github.com/swisskyrepo/PayloadsAllTheThings' },
-      { title: 'Free Movie 26', url: 'https://nover749.github.io/Free-Movie26/' },
-      { title: 'MyAndroid Run', url: 'https://www.myandroid.org/run/start.php' },
-      { title: 'MC-Collection (GitHub)', url: 'https://github.com/nover749/MC-Collection' },
 
-      // Windows-related tools
-      { title: 'Sysinternals Suite (Microsoft)', url: 'https://learn.microsoft.com/en-us/sysinternals/' },
-      { title: 'PowerToys (Microsoft GitHub)', url: 'https://github.com/microsoft/PowerToys' },
-      { title: 'Windows Terminal (Microsoft GitHub)', url: 'https://github.com/microsoft/terminal' },
-      { title: 'Chocolatey (Windows package manager)', url: 'https://chocolatey.org/' },
-      { title: 'Nmap for Windows', url: 'https://nmap.org/download.html#win' },
-      { title: 'Process Hacker', url: 'https://processhacker.sourceforge.io/' },
-      { title: 'Hashcat (official)', url: 'https://hashcat.net/hashcat/' }
+      { title: 'PayloadsAllTheThings', url: 'https://github.com/swisskyrepo/PayloadsAllTheThings' },
+      { title: 'Free Movie 26', url: 'https://nover749.github.io/Free-Movie26/' },
+      { title: 'MyAndroid Tools', url: 'https://www.myandroid.org/run/start.php' },
+      { title: 'MC Collection', url: 'https://github.com/nover749/MC-Collection' },
+      { title: 'Operius', url: 'https://sites.google.com/view/ezclasswork/operius/operius' },
+      { title: 'Donkey Kong Country', url: 'https://classicgamezone.com/games/donkey-kong-country' },
+      { title: 'Super Bomberman 4', url: 'https://www.classicgames.me/super-bomberman-4.html' },
+
+      // Security & networking tools (expanded list)
+      { title: 'Hashcat', url: 'https://hashcat.net/hashcat/' },
+      { title: 'John the Ripper', url: 'https://www.openwall.com/john/' },
+      { title: 'Aircrack-ng', url: 'https://www.aircrack-ng.org/' },
+      { title: 'Nmap', url: 'https://nmap.org/' },
+      { title: 'Masscan', url: 'https://github.com/robertdavidgraham/masscan' },
+      { title: 'Wireshark', url: 'https://www.wireshark.org/' },
+      { title: 'Tcpdump', url: 'https://www.tcpdump.org/' },
+      { title: 'Netcat (GNU)', url: 'https://nc110.sourceforge.io/' },
+      { title: 'Socat', url: 'http://www.dest-unreach.org/socat/' },
+      { title: 'Metasploit Framework', url: 'https://github.com/rapid7/metasploit-framework' },
+      { title: 'Burp Suite', url: 'https://portswigger.net/burp' },
+      { title: 'OWASP ZAP', url: 'https://www.zaproxy.org/' },
+      { title: 'SQLmap', url: 'https://sqlmap.org/' },
+      { title: 'Nikto', url: 'https://cirt.net/Nikto2' },
+      { title: 'OpenVAS / Greenbone', url: 'https://www.greenbone.net/en/' },
+      { title: 'Nessus (Tenable)', url: 'https://www.tenable.com/products/nessus' },
+      { title: 'Snort', url: 'https://www.snort.org/' },
+      { title: 'Suricata', url: 'https://suricata-ids.org/' },
+      { title: 'Bro / Zeek', url: 'https://zeek.org/' },
+      { title: 'Tcpflow', url: 'https://github.com/simsong/tcpflow' },
+      { title: 'Hping3', url: 'https://github.com/antirez/hping' },
+      { title: 'Scapy', url: 'https://scapy.net/' },
+      { title: 'Fiddler', url: 'https://www.telerik.com/fiddler' },
+      { title: 'Responder', url: 'https://github.com/lgandx/Responder' },
+      { title: 'Mimikatz', url: 'https://github.com/gentilkiwi/mimikatz' },
+      { title: 'Hashcat GUI (Hashcat-utils)', url: 'https://github.com/hashcat' },
+      { title: 'Hydra (THC Hydra)', url: 'https://github.com/vanhauser-thc/thc-hydra' },
+      { title: 'Medusa', url: 'https://github.com/jmk-foofus/medusa' },
+      { title: 'Patator', url: 'https://github.com/lanjelot/patator' },
+      { title: 'Crowbar', url: 'https://github.com/galkan/crowbar' },
+      { title: 'WPScan', url: 'https://wpscan.com/' },
+      { title: 'Gobuster', url: 'https://github.com/OJ/gobuster' },
+      { title: 'Dirb', url: 'https://www.secforce.com/dirb/' },
+      { title: 'Dirbuster', url: 'https://www.owasp.org/index.php/Category:OWASP_DirBuster_Project' },
+      { title: 'Amass', url: 'https://github.com/OWASP/Amass' },
+      { title: 'Sublist3r', url: 'https://github.com/aboul3la/Sublist3r' },
+      { title: 'Aquatone', url: 'https://github.com/michenriksen/aquatone' },
+      { title: 'MassDNS', url: 'https://github.com/blechschmidt/massdns' },
+      { title: 'Recon-ng', url: 'https://github.com/lanmaster53/recon-ng' },
+      { title: 'TheHarvester', url: 'https://github.com/laramies/theHarvester' },
+      { title: 'Nikto (web scanner)', url: 'https://cirt.net/Nikto2' },
+      { title: 'Wfuzz', url: 'https://github.com/xmendez/wfuzz' },
+      { title: 'BeEf (Browser Exploitation)', url: 'https://github.com/beefproject/beef' },
+      { title: 'SET (Social-Engineer Toolkit)', url: 'https://github.com/trustedsec/social-engineer-toolkit' },
+      { title: 'Impacket', url: 'https://github.com/SecureAuthCorp/impacket' },
+      { title: 'CrackMapExec', url: 'https://github.com/byt3bl33d3r/CrackMapExec' },
+      { title: 'BloodHound', url: 'https://github.com/BloodHoundAD/BloodHound' },
+      { title: 'SharpHound', url: 'https://github.com/BloodHoundAD/SharpHound' },
+      { title: 'PowerSploit', url: 'https://github.com/PowerShellMafia/PowerSploit' },
+      { title: 'Empire', url: 'https://github.com/BC-SECURITY/Empire' },
+      { title: 'Powershell Empire (forks)', url: 'https://github.com/EmpireProject/Empire' },
+      { title: 'Veil-Framework', url: 'https://github.com/Veil-Framework/Veil' },
+      { title: 'Cobalt Strike (commercial)', url: 'https://www.cobaltstrike.com/' },
+      { title: 'Kali Linux', url: 'https://www.kali.org/' },
+      { title: 'Parrot OS', url: 'https://www.parrotsec.org/' },
+      { title: 'BlackArch', url: 'https://blackarch.org/' },
+      { title: 'BackBox', url: 'https://www.backbox.org/' },
+      { title: 'Security Onion', url: 'https://securityonion.net/' },
+      { title: 'OSSEC', url: 'https://www.ossec.net/' },
+      { title: 'Splunk (free edition)', url: 'https://www.splunk.com/' },
+      { title: 'ELK Stack (Elastic)', url: 'https://www.elastic.co/elk-stack' },
+      { title: 'Suricata', url: 'https://suricata-ids.org/' },
+      { title: 'Fail2Ban', url: 'https://www.fail2ban.org/' },
+      { title: 'OSQuery', url: 'https://osquery.io/' },
+      { title: 'Strace', url: 'https://strace.io/' },
+      { title: 'Lsof', url: 'https://github.com/lsof-org/lsof' },
+      { title: 'Process Explorer (Sysinternals)', url: 'https://learn.microsoft.com/en-us/sysinternals/' },
+      { title: 'Autoruns (Sysinternals)', url: 'https://learn.microsoft.com/en-us/sysinternals/' },
+      { title: 'TCPView (Sysinternals)', url: 'https://learn.microsoft.com/en-us/sysinternals/' },
+      { title: 'PowerShell', url: 'https://docs.microsoft.com/powershell' },
+      { title: 'Python', url: 'https://www.python.org/' },
+      { title: 'Go (golang)', url: 'https://golang.org/' },
+      { title: 'Ruby', url: 'https://www.ruby-lang.org/' },
+      { title: 'Perl', url: 'https://www.perl.org/' },
+      { title: 'Ghidra', url: 'https://ghidra-sre.org/' },
+      { title: 'Radare2 / Cutter', url: 'https://rada.re/n/' },
+      { title: 'IDA Freeware', url: 'https://www.hex-rays.com/products/ida/' },
+      { title: 'Binary Ninja (commercial)', url: 'https://binary.ninja/' },
+      { title: 'Frida', url: 'https://frida.re/' },
+      { title: 'APKTool', url: 'https://ibotpeaches.github.io/Apktool/' },
+      { title: 'MobSF (Mobile Security Framework)', url: 'https://mobsf.github.io/Mobile-Security-Framework-MobSF/' },
+      { title: 'OWASP Dependency-Check', url: 'https://owasp.org/www-project-dependency-check/' },
+      { title: 'Trivy (container scanner)', url: 'https://github.com/aquasecurity/trivy' },
+      { title: 'Clair (container scanner)', url: 'https://github.com/quay/clair' },
+      { title: 'GolangCI-Lint', url: 'https://golangci-lint.run/' },
+      { title: 'Sn1per', url: 'https://github.com/1N3/Sn1per' },
+      { title: 'AutoRecon', url: 'https://github.com/Tib3rius/AutoRecon' },
+      { title: 'Pacu (AWS exploitation framework)', url: 'https://github.com/RhinoSecurityLabs/pacu' },
+      { title: 'CloudSploit', url: 'https://github.com/aquasecurity/bench-common' },
+      { title: 'ScoutSuite', url: 'https://github.com/nccgroup/ScoutSuite' },
+      { title: 'Burp Extensions (BApp Store)', url: 'https://portswigger.net/bappstore' },
+      { title: 'SecLists (wordlists, payloads)', url: 'https://github.com/danielmiessler/SecLists' },
+      { title: 'wordlists (rockyou & more)', url: 'https://github.com/brannondorsey/naive-hashcat' },
+      { title: 'Hashcat Rules', url: 'https://github.com/hashcat/hashcat/tree/master/rules' },
+      { title: 'Powershell Empire (archived)', url: 'https://github.com/EmpireProject/Empire' },
+      { title: 'Responder (repeat)', url: 'https://github.com/lgandx/Responder' },
+      { title: 'Responder (again)', url: 'https://github.com/lgandx/Responder' }
     ];
 
     const input = document.getElementById('codeInput');
@@ -114,9 +226,29 @@
     const protectedSection = document.getElementById('protected');
     const linksContainer = document.getElementById('linksContainer');
 
-    function showLinks(){
+    // Create hidden search bar (will appear when page is unlocked)
+    const searchWrap = document.createElement('div');
+    searchWrap.style.display = 'none';
+    searchWrap.style.marginTop = '8px';
+
+    const searchInput = document.createElement('input');
+    searchInput.type = 'search';
+    searchInput.placeholder = 'Search links...';
+    searchInput.style.width = '100%';
+    searchInput.style.padding = '10px 12px';
+    searchInput.style.borderRadius = '10px';
+    searchInput.style.border = '1px solid rgba(255,255,255,0.06)';
+    searchInput.style.background = 'transparent';
+    searchInput.style.color = 'var(--fg)';
+    searchInput.style.fontSize = '14px';
+
+    searchWrap.appendChild(searchInput);
+    // insert searchWrap at top of protected section
+    protectedSection.insertBefore(searchWrap, protectedSection.firstChild);
+
+    function renderLinks(list){
       linksContainer.innerHTML = '';
-      links.forEach(l => {
+      list.forEach(l => {
         const a = document.createElement('a');
         a.className = 'link-card';
         a.href = l.url;
@@ -125,7 +257,7 @@
 
         const fav = document.createElement('div');
         fav.className = 'favicon';
-        fav.textContent = l.title.charAt(0).toUpperCase();
+        fav.textContent = (l.title || l.url).trim().charAt(0).toUpperCase();
 
         const meta = document.createElement('div');
         meta.className = 'link-meta';
@@ -138,6 +270,10 @@
       });
     }
 
+    function showLinks(){
+      renderLinks(links);
+    }
+
     function unlock(){
       const val = input.value.trim();
       if(val === ACCESS_CODE){
@@ -145,6 +281,10 @@
         feedback.textContent = 'Access granted — welcome.';
         feedback.style.color = '';
         showLinks();
+        // reveal search
+        searchWrap.style.display = 'block';
+        // focus search on mobile/desktop
+        setTimeout(()=>searchInput.focus(),100);
       } else {
         feedback.textContent = 'Access denied — try again.';
         feedback.style.color = '#ff6b6b';
@@ -152,8 +292,17 @@
       }
     }
 
+    // wire up events
     btn.addEventListener('click', unlock);
     input.addEventListener('keydown', (e)=>{ if(e.key === 'Enter') unlock(); });
+
+    // search functionality: filter links by title or url
+    searchInput.addEventListener('input', ()=>{
+      const q = searchInput.value.trim().toLowerCase();
+      if(!q) return renderLinks(links);
+      const filtered = links.filter(l => (l.title + ' ' + l.url).toLowerCase().includes(q));
+      renderLinks(filtered);
+    });
   </script>
 </body>
 </html>
